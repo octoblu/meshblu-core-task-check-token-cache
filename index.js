@@ -1,2 +1,2 @@
 require('coffee-script/register');
-require('./src/check-token-cache.coffee');
+module.exports = require('./src/check-token-cache.coffee');
