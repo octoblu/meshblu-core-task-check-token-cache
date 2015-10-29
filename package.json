@@ -19,7 +19,9 @@
   "keywords": [
     "meshblu"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "meshblu-core-manager-token": "^1.1.2"
+  },
   "devDependencies": {
     "chai": "^3.4.0",
     "coffee-coverage": "^0.6.3",

@@ -1,13 +1,15 @@
 crypto = require 'crypto'
 http   = require 'http'
+TokenManager = require 'meshblu-core-manager-token'
 
 class CheckTokenCache
   constructor: (options={}) ->
     {@cache,@pepper} = options
+    @tokenManager = new TokenManager pepper: @pepper
 
   do: (request, callback) =>
     {uuid,token} = request.metadata.auth
-    hashedToken = @_hashToken uuid, token
+    hashedToken = @tokenManager.hashToken uuid, token
 
     @cache.exists "#{uuid}:#{hashedToken}", (error, result) =>
       code = 204
@@ -19,12 +21,5 @@ class CheckTokenCache
         status: http.STATUS_CODES[code]
 
       callback null, response
-
-  _hashToken: (uuid, token) =>
-    hasher = crypto.createHash 'sha256'
-    hasher.update uuid
-    hasher.update token
-    hasher.update @pepper
-    hasher.digest 'base64'
 
 module.exports = CheckTokenCache
