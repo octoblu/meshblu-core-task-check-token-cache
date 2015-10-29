@@ -61,11 +61,11 @@ describe 'CheckTokenCache', ->
 
         @sut.do request, (error, @response) => done error
 
-      it 'should respond with a 403', ->
+      it 'should respond with a 404', ->
         expect(@response).to.deep.equal
           responseId: "You'll swim with the fishes (Except they're actually mammals)!"
-          code: 403
-          status: 'Forbidden'
+          code: 404
+          status: 'Not Found'
 
     describe 'when a different uuid/token combination is not in the cache', ->
       beforeEach (done) ->
@@ -78,8 +78,8 @@ describe 'CheckTokenCache', ->
 
         @sut.do request, (error, @response) => done error
 
-      it 'should respond with a 403', ->
+      it 'should respond with a 404', ->
         expect(@response).to.deep.equal
           responseId: 'extreme'
-          code: 403
-          status: 'Forbidden'
+          code: 404
+          status: 'Not Found'

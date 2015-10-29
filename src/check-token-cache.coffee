@@ -11,7 +11,7 @@ class CheckTokenCache
 
     @cache.exists "#{uuid}:#{hashedToken}", (error, result) =>
       code = 204
-      code = 403 if result == 0
+      code = 404 if result == 0
 
       response =
         responseId: request.metadata.responseId
