@@ -12,8 +12,8 @@ class CheckTokenCache
     hashedToken = @tokenManager.hashToken uuid, token
 
     @cache.exists "#{uuid}:#{hashedToken}", (error, result) =>
-      code = 204
-      code = 404 if result == 0
+      code = 404
+      code = 204 if result
 
       response =
         metadata:
