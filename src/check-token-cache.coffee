@@ -16,9 +16,10 @@ class CheckTokenCache
       code = 404 if result == 0
 
       response =
-        responseId: request.metadata.responseId
-        code: code
-        status: http.STATUS_CODES[code]
+        metadata:
+          responseId: request.metadata.responseId
+          code: code
+          status: http.STATUS_CODES[code]
 
       callback null, response
 

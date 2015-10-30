@@ -26,9 +26,10 @@ describe 'CheckTokenCache', ->
 
       it 'should respond with a 204', ->
         expect(@response).to.deep.equal
-          responseId: 'asdf'
-          code: 204
-          status: 'No Content'
+          metadata:
+            responseId: 'asdf'
+            code: 204
+            status: 'No Content'
 
     describe 'when a different uuid/token combination is in the cache', ->
       beforeEach (done) ->
@@ -46,9 +47,10 @@ describe 'CheckTokenCache', ->
 
       it 'should respond with a 204', ->
         expect(@response).to.deep.equal
-          responseId: 'some-response'
-          code: 204
-          status: 'No Content'
+          metadata:
+            responseId: 'some-response'
+            code: 204
+            status: 'No Content'
 
     describe 'when a uuid/token combination is not in the cache', ->
       beforeEach (done) ->
@@ -63,9 +65,10 @@ describe 'CheckTokenCache', ->
 
       it 'should respond with a 404', ->
         expect(@response).to.deep.equal
-          responseId: "You'll swim with the fishes (Except they're actually mammals)!"
-          code: 404
-          status: 'Not Found'
+          metadata:
+            responseId: "You'll swim with the fishes (Except they're actually mammals)!"
+            code: 404
+            status: 'Not Found'
 
     describe 'when a different uuid/token combination is not in the cache', ->
       beforeEach (done) ->
@@ -80,6 +83,7 @@ describe 'CheckTokenCache', ->
 
       it 'should respond with a 404', ->
         expect(@response).to.deep.equal
-          responseId: 'extreme'
-          code: 404
-          status: 'Not Found'
+          metadata:
+            responseId: 'extreme'
+            code: 404
+            status: 'Not Found'
