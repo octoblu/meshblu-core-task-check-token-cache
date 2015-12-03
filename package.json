@@ -1,6 +1,6 @@
 {
   "name": "meshblu-core-task-check-token-cache",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Meshblu Core Check Token Cache",
   "main": "index.js",
   "scripts": {

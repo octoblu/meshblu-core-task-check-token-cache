@@ -6,12 +6,16 @@ uuid   = require 'uuid'
 describe 'CheckTokenCache', ->
   beforeEach ->
     @redisKey = uuid.v1()
-    @sut = new CheckTokenCache cache: redis.createClient(@redisKey), pepper: 'totally-a-secret'
+    @uuidAliasResolver = resolve: (uuid, callback) => callback null, uuid
+    @sut = new CheckTokenCache
+      cache: redis.createClient(@redisKey)
+      pepper: 'totally-a-secret'
+      uuidAliasResolver: @uuidAliasResolver
     @cache = redis.createClient @redisKey
 
   describe '->do', ->
     beforeEach (done) ->
-      @cache.set 'barber-slips:FUujOBoQaaTSK9Ls8N7w7AaquAWV4NDXeHpIrnhC44w=', '', done
+      @cache.set 'barber-slips:SPm/FSHcK75+KK0L2IPO7fas6zdlbPlYT3BLOWt9BiA=', '', done
 
     describe 'when the uuid/token combination is in the cache', ->
       beforeEach (done) ->
@@ -33,7 +37,7 @@ describe 'CheckTokenCache', ->
 
     describe 'when a different uuid/token combination is in the cache', ->
       beforeEach (done) ->
-        @cache.set "beak:5Ick2qtwMTujgCkohjsBnDh6fykHwhPpfNfQwwEa8Rg=", '', done
+        @cache.set "beak:W6xHaJXZadb7EufCBVie3cZ4dAEuROlMV3ZDcCEkNE0=", '', done
 
       beforeEach (done) ->
         request =

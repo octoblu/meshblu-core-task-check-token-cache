@@ -4,8 +4,8 @@ TokenManager = require 'meshblu-core-manager-token'
 
 class CheckTokenCache
   constructor: (options={}) ->
-    {@cache,@pepper} = options
-    @tokenManager = new TokenManager pepper: @pepper
+    {@cache,pepper,uuidAliasResolver} = options
+    @tokenManager = new TokenManager {pepper, uuidAliasResolver}
 
   do: (request, callback) =>
     {uuid,token} = request.metadata.auth
