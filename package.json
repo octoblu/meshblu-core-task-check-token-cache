@@ -1,6 +1,6 @@
 {
   "name": "meshblu-core-task-check-token-cache",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Meshblu Core Check Token Cache",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "meshblu"
   ],
   "dependencies": {
-    "meshblu-core-manager-token": "^2.0.0"
+    "meshblu-core-manager-token": "^2.0.2"
   },
   "devDependencies": {
     "chai": "^3.4.0",
