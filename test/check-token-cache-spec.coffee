@@ -8,7 +8,7 @@ describe 'CheckTokenCache', ->
     @redisKey = uuid.v1()
     @uuidAliasResolver = resolve: (uuid, callback) => callback null, uuid
     @sut = new CheckTokenCache
-      cache: redis.createClient(@redisKey)
+      cache: redis.createClient @redisKey
       pepper: 'totally-a-secret'
       uuidAliasResolver: @uuidAliasResolver
     @cache = redis.createClient @redisKey

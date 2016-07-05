@@ -4,8 +4,8 @@ TokenManager = require 'meshblu-core-manager-token'
 
 class CheckTokenCache
   constructor: (options={}) ->
-    {@cache,pepper,uuidAliasResolver} = options
-    @tokenManager = new TokenManager {pepper, uuidAliasResolver}
+    {cache,pepper,uuidAliasResolver} = options
+    @tokenManager = new TokenManager {cache, pepper, uuidAliasResolver}
 
   _doCallback: (request, code, callback) =>
     response =
@@ -19,11 +19,8 @@ class CheckTokenCache
     {uuid,token} = request.metadata.auth
     return @_doCallback request, 404, callback unless uuid? and token?
 
-    @tokenManager.hashToken {uuid, token}, (error, hashedToken) =>
+    @tokenManager.checkTokenCache {uuid, token}, (error, result) =>
       return callback error if error?
-      return @_doCallback request, 404, callback unless hashedToken?
-
-      @cache.exists "#{uuid}:#{hashedToken}", (error, result) =>
-        return @_doCallback request, (if result then 204 else 404), callback
+      @_doCallback request, (if result then 204 else 404), callback
 
 module.exports = CheckTokenCache
