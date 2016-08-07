@@ -16,7 +16,7 @@ class CheckTokenCache
     callback null, response
 
   do: (request, callback) =>
-    {uuid,token} = request.metadata.auth
+    {uuid,token} = request.metadata.auth ? {}
     return @_doCallback request, 404, callback unless uuid? and token?
 
     @tokenManager.checkTokenCache {uuid, token}, (error, result) =>
