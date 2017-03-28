@@ -1,10 +1,10 @@
+{describe,beforeEach,it,expect} = global
 CheckTokenCache = require '../src/check-token-cache'
-crypto = require 'crypto'
 redis  = require 'fakeredis'
 uuid   = require 'uuid'
 
 describe 'CheckTokenCache', ->
-  beforeEach ->
+  beforeEach 'init task', ->
     @redisKey = uuid.v1()
     @uuidAliasResolver = resolve: (uuid, callback) => callback null, uuid
     @sut = new CheckTokenCache
@@ -14,11 +14,11 @@ describe 'CheckTokenCache', ->
     @cache = redis.createClient @redisKey
 
   describe '->do', ->
-    beforeEach (done) ->
+    beforeEach 'set token', (done) ->
       @cache.set 'barber-slips:SPm/FSHcK75+KK0L2IPO7fas6zdlbPlYT3BLOWt9BiA=', '', done
 
     describe 'when the uuid/token combination is in the cache', ->
-      beforeEach (done) ->
+      beforeEach 'do request', (done) ->
         request =
           metadata:
             responseId: 'asdf'
@@ -26,7 +26,8 @@ describe 'CheckTokenCache', ->
               uuid:  'barber-slips'
               token: 'Just a little off the top'
 
-        @sut.do request, (error, @response) => done error
+        @sut.do request, (error, @response) =>
+          done error
 
       it 'should respond with a 204', ->
         expect(@response).to.deep.equal
